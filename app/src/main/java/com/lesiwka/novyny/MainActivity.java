@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 
         mWebView.setOnLongClickListener(v -> true);
         mWebView.setLongClickable(false);
+        mWebView.setHapticFeedbackEnabled(false);
 
         mWebView.setWebViewClient(new MyWebViewClient());
 
