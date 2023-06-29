@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -57,13 +56,14 @@ public class MainActivity extends Activity {
         mSwipeRefreshLayout = findViewById(R.id.swipe);
         mSwipeRefreshLayout.setOnRefreshListener(mWebView::reload);
 
-        mWebView.setOnLongClickListener((View.OnLongClickListener) v -> true);
+        mWebView.setOnLongClickListener(v -> true);
         mWebView.setLongClickable(false);
 
         mWebView.setWebViewClient(new MyWebViewClient());
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportZoom(false);
 
         mWebView.loadUrl(hostName);
     }
