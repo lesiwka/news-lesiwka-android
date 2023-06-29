@@ -1,0 +1,7 @@
+<resources>
+    <style name="NOVYNY">
+        <item name="android:statusBarColor">@color/ic_launcher_background</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
