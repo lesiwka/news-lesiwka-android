@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">[NOVYNY]</string>
-    <string name="hostname">novyny.lesiwka.com</string>
+    <string name="host_name">novyny.lesiwka.com</string>
+    <string name="user_agent_template">NovynyApp/%d (%s; %s) %s</string>
 </resources>

@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Base64;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -50,7 +52,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        hostName = getResources().getString(R.string.hostname);
+        hostName = getString(R.string.host_name);
 
         WebView mWebView = findViewById(R.id.webview);
         mSwipeRefreshLayout = findViewById(R.id.swipe);
@@ -65,6 +67,16 @@ public class MainActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(false);
+
+        String userAgentTemplate = getString(R.string.user_agent_template);
+        int versionCode = 0;
+        try {
+            versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException ignored) {}
+
+        String appName = getString(R.string.app_name);
+        String userAgent = Base64.encodeToString(webSettings.getUserAgentString().getBytes(), Base64.NO_PADDING | Base64.NO_WRAP);
+        webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostName, userAgent));
 
         mWebView.loadUrl(hostName);
     }
