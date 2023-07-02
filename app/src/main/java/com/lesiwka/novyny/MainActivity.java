@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.webkit.WebResourceError;
@@ -17,6 +18,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
     private String hostName;
+    private String url;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private class MyWebViewClient extends WebViewClient {
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
 
             AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
             alert.setTitle("Error");
-            alert.setPositiveButton("OK", (dialog, whichButton) -> view.loadUrl(hostName));
+            alert.setPositiveButton("OK", (dialog, whichButton) -> view.loadUrl(url));
             alert.setCancelable(false);
             alert.show();
         }
@@ -53,6 +55,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         hostName = getString(R.string.host_name);
+        url = "https://" + hostName;
 
         WebView mWebView = findViewById(R.id.webview);
         mSwipeRefreshLayout = findViewById(R.id.swipe);
@@ -71,13 +74,17 @@ public class MainActivity extends Activity {
         String userAgentTemplate = getString(R.string.user_agent_template);
         int versionCode = 0;
         try {
-            versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                versionCode = (int) getPackageManager().getPackageInfo(getPackageName(), PackageManager.PackageInfoFlags.of(0)).getLongVersionCode();
+            } else {
+                versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            }
         } catch (PackageManager.NameNotFoundException ignored) {}
 
         String appName = getString(R.string.app_name);
         String userAgent = Base64.encodeToString(webSettings.getUserAgentString().getBytes(), Base64.NO_PADDING | Base64.NO_WRAP);
         webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostName, userAgent));
 
-        mWebView.loadUrl(hostName);
+        mWebView.loadUrl(url);
     }
 }
