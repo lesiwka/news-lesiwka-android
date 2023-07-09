@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -64,6 +65,7 @@ public class MainActivity extends Activity {
         mWebView.setOnLongClickListener(v -> true);
         mWebView.setLongClickable(false);
         mWebView.setHapticFeedbackEnabled(false);
+        mWebView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         mWebView.setWebViewClient(new MyWebViewClient());
 
