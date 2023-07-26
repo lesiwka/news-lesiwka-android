@@ -19,7 +19,6 @@ import android.webkit.WebViewClient;
 public class MainActivity extends Activity {
     private String hostName;
     private String url;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private class MyWebViewClient extends WebViewClient {
         @Override
@@ -33,7 +32,8 @@ public class MainActivity extends Activity {
             return true;
         }
         public void onPageFinished(WebView view, String url) {
-            mSwipeRefreshLayout.setRefreshing(false);
+            SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
+            swipeRefreshLayout.setRefreshing(false);
         }
 
         @Override
@@ -58,8 +58,8 @@ public class MainActivity extends Activity {
         url = "https://" + hostName;
 
         WebView mWebView = findViewById(R.id.webview);
-        mSwipeRefreshLayout = findViewById(R.id.swipe);
-        mSwipeRefreshLayout.setOnRefreshListener(mWebView::reload);
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(mWebView::reload);
 
         mWebView.setOnLongClickListener(v -> true);
         mWebView.setWebViewClient(new MyWebViewClient());
