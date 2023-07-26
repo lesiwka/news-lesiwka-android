@@ -84,10 +84,12 @@ public class MainActivity extends Activity {
         mWebView.loadUrl(url);
     }
 
+    @SuppressWarnings("unused")
     public boolean zoomIn() {
         return true;
     }
 
+    @SuppressWarnings("unused")
     public boolean zoomOut() {
         return true;
     }
