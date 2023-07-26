@@ -9,6 +9,11 @@
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:hapticFeedbackEnabled="false"
+        android:isScrollContainer="false"
+        android:longClickable="false"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

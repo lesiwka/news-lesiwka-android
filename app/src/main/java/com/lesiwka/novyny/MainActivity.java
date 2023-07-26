@@ -62,10 +62,6 @@ public class MainActivity extends Activity {
         mSwipeRefreshLayout.setOnRefreshListener(mWebView::reload);
 
         mWebView.setOnLongClickListener(v -> true);
-        mWebView.setLongClickable(false);
-        mWebView.setHapticFeedbackEnabled(false);
-        mWebView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
         mWebView.setWebViewClient(new MyWebViewClient());
 
         WebSettings webSettings = mWebView.getSettings();
