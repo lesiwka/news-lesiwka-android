@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -71,8 +70,6 @@ public class MainActivity extends Activity {
 
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setSupportZoom(false);
-        webSettings.setDisplayZoomControls(false);
 
         String userAgentTemplate = getString(R.string.user_agent_template);
         int versionCode = 0;
@@ -89,5 +86,13 @@ public class MainActivity extends Activity {
         webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostName, userAgent));
 
         mWebView.loadUrl(url);
+    }
+
+    public boolean zoomIn() {
+        return true;
+    }
+
+    public boolean zoomOut() {
+        return true;
     }
 }
