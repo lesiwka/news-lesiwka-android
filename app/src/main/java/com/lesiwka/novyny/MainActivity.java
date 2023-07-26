@@ -67,6 +67,10 @@ public class MainActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+        webSettings.setSupportZoom(false);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setDisplayZoomControls(false);
+
         String userAgentTemplate = getString(R.string.user_agent_template);
         int versionCode = 0;
         try {
