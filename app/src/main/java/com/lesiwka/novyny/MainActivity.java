@@ -38,13 +38,15 @@ public class MainActivity extends Activity {
 
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-            view.loadUrl("about:blank");
+            if (request.isForMainFrame()) {
+                view.loadUrl("about:blank");
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-            alert.setTitle("Error");
-            alert.setPositiveButton("OK", (dialog, whichButton) -> view.loadUrl(url));
-            alert.setCancelable(false);
-            alert.show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                alert.setTitle("Error");
+                alert.setPositiveButton("OK", (dialog, whichButton) -> view.loadUrl(url));
+                alert.setCancelable(false);
+                alert.show();
+            }
         }
     }
 
