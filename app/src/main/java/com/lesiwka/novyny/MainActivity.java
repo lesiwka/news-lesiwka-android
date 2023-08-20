@@ -69,8 +69,8 @@ public class MainActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        webSettings.setSupportZoom(false);
-        webSettings.setBuiltInZoomControls(false);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
 
         String userAgentTemplate = getString(R.string.user_agent_template);
@@ -88,15 +88,5 @@ public class MainActivity extends Activity {
         webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostName, userAgent));
 
         mWebView.loadUrl(url);
-    }
-
-    @SuppressWarnings("unused")
-    public boolean zoomIn() {
-        return true;
-    }
-
-    @SuppressWarnings("unused")
-    public boolean zoomOut() {
-        return true;
     }
 }
