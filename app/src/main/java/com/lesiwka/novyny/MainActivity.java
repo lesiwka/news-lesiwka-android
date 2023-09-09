@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         hostName = getString(R.string.host_name);
-        url = "https://" + hostName;
+        url = getString(R.string.host_protocol) + "://" + hostName;
 
         WebView mWebView = findViewById(R.id.webview);
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
