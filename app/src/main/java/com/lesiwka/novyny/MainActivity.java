@@ -56,8 +56,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        hostName = getString(R.string.host_name);
-        url = getString(R.string.host_protocol) + "://" + hostName;
+        hostName = getString(R.string.url_hostname);
+        String hostNameWithPort = hostName;
+        String port = getString(R.string.url_port);
+        if (!port.equals("")) {
+            hostNameWithPort += ":" + port;
+        }
+        url = getString(R.string.url_protocol) + "://" + hostNameWithPort;
 
         WebView mWebView = findViewById(R.id.webview);
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
@@ -85,7 +90,7 @@ public class MainActivity extends Activity {
 
         String appName = getString(R.string.app_name);
         String userAgent = Base64.encodeToString(webSettings.getUserAgentString().getBytes(), Base64.NO_PADDING | Base64.NO_WRAP);
-        webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostName, userAgent));
+        webSettings.setUserAgentString(String.format(userAgentTemplate, versionCode, appName, hostNameWithPort, userAgent));
 
         mWebView.loadUrl(url);
     }

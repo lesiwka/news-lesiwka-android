@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">[NOVYNY]</string>
-    <string name="host_name">novyny.lesiwka.com</string>
-    <string name="host_protocol">https</string>
+    <string name="url_hostname">novyny.lesiwka.com</string>
+    <string name="url_protocol">https</string>
+    <string name="url_port"></string>
     <string name="user_agent_template">NovynyApp/%d (%s; %s) %s</string>
 </resources>
