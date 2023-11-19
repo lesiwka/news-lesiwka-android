@@ -9,16 +9,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Base64;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
     private String hostName;
     private String url;
+    private SpannableString errorMessage;
 
     private class MyWebViewClient extends WebViewClient {
         @Override
@@ -41,11 +46,15 @@ public class MainActivity extends Activity {
             if (request.isForMainFrame()) {
                 view.loadUrl("about:blank");
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-                alert.setTitle("Error");
-                alert.setPositiveButton("OK", (dialog, whichButton) -> view.loadUrl(url));
-                alert.setCancelable(false);
+                AlertDialog alert = new AlertDialog.Builder(view.getContext())
+                    .setTitle(R.string.error_title)
+                    .setMessage(errorMessage)
+                    .setPositiveButton(R.string.error_button, (dialog, whichButton) -> view.loadUrl(url))
+                    .setCancelable(false)
+                    .create();
+
                 alert.show();
+                ((TextView) alert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
             }
         }
     }
@@ -63,6 +72,8 @@ public class MainActivity extends Activity {
             hostNameWithPort += ":" + port;
         }
         url = getString(R.string.url_protocol) + "://" + hostNameWithPort;
+        errorMessage = new SpannableString(String.format(getString(R.string.error_message_template), getString(R.string.error_button), url));
+        Linkify.addLinks(errorMessage, Linkify.WEB_URLS);
 
         WebView mWebView = findViewById(R.id.webview);
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
