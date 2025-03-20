@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         hostName = getString(R.string.url_hostname);
         String hostNameWithPort = hostName;
         String port = getString(R.string.url_port);
-        if (!port.equals("")) {
+        if (!port.isEmpty()) {
             hostNameWithPort += ":" + port;
         }
         url = getString(R.string.url_protocol) + "://" + hostNameWithPort;
